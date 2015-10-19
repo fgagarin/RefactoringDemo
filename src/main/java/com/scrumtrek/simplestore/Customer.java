@@ -28,7 +28,7 @@ public class Customer {
 		String result = "Rental record for " + name + "\n";
 		
 		for(Rental currentRental: rentals) {
-			double thisAmount = getThisAmount(currentRental);
+			double thisAmount = calculateAmmount(currentRental);
 
 			// Add frequent renter points
 			frequentRenterPoints = addFrequentRenterPoints(frequentRenterPoints, currentRental);
@@ -46,39 +46,44 @@ public class Customer {
 
 	int addFrequentRenterPoints(int frequentRenterPoints, Rental each) {
 		frequentRenterPoints++;
-
-		// Add bonus for a two-day new-release rental
-		if ((each.getMovie().getPriceCode() == PriceCodes.NewRelease) && (each.getDaysRented() > 1))
-        {
+		if ((each.getMovie().getPriceCode() == PriceCodes.NewRelease) && (each.getDaysRented() > 1)) {
             frequentRenterPoints ++;
         }
 		return frequentRenterPoints;
 	}
 
-	double getThisAmount(Rental each) {
-		double thisAmount = 0;
-
-		// Determine amounts for each line
+	double calculateAmmount(Rental each) {
 		switch(each.getMovie().getPriceCode()) {
             case Regular:
-                thisAmount += 2;
-                if (each.getDaysRented() > 2)
-                {
-                    thisAmount += (each.getDaysRented() - 2) * 1.5;
-                }
-                break;
+				return calculateRegularAmount(each);
 
             case NewRelease:
-                thisAmount += each.getDaysRented() * 3;
-                break;
+                return calculateNewReleaseAmount(each);
 
             case Childrens:
-                thisAmount += 1.5;
-                if (each.getDaysRented() > 3)
-                {
-                    thisAmount = (each.getDaysRented() - 3) * 1.5;
-                }
-                break;
+				return calculateChildrenAmount(each);
+
+			default:
+				return 0;
+        }
+	}
+
+	int calculateNewReleaseAmount(Rental each) {
+		return each.getDaysRented() * 3;
+	}
+
+	double calculateChildrenAmount(Rental each) {
+		double thisAmount = 1.5;
+		if (each.getDaysRented() > 3) {
+            thisAmount = (each.getDaysRented() - 3) * 1.5;
+        }
+		return thisAmount;
+	}
+
+	double calculateRegularAmount(Rental each) {
+		double thisAmount = 2;
+		if (each.getDaysRented() > 2) {
+            thisAmount += (each.getDaysRented() - 2) * 1.5;
         }
 		return thisAmount;
 	}
