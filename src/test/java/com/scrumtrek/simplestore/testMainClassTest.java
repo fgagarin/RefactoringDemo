@@ -1,7 +1,6 @@
 package com.scrumtrek.simplestore;
 
 import org.hamcrest.core.IsEqual;
-import org.hamcrest.core.IsNull;
 import org.junit.Test;
 
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -35,9 +34,9 @@ public class testMainClassTest {
         custMickeyMouse.addRental(rental3);
 
         // Generate invoice
-        String statement = custMickeyMouse.Statement();
+        String statement = custMickeyMouse.calculateStatement();
 
-        // Print the statement
+        // Print the calculateStatement
         assertThat(statement, notNullValue());
         assertThat(statement, IsEqual.equalTo("Rental record for Mickey Mouse\n" +
                 "\tCinderella\t3.0\n" +
