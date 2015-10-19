@@ -1,12 +1,10 @@
 package com.scrumtrek.simplestore;
 
-import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
-import static com.scrumtrek.simplestore.PriceCodes.Childrens;
-import static com.scrumtrek.simplestore.PriceCodes.NewRelease;
+import static com.scrumtrek.simplestore.PriceCodes.*;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by fgagarin on 10/19/15.
@@ -34,5 +32,36 @@ public class CustomerTest {
         Rental rentalMoreThanOneDay = new Rental(movie, 2);
         result = customer.addFrequentRenterPoints(startFrequentRentalPoints, rentalMoreThanOneDay);
         assertThat(result, equalTo(startFrequentRentalPoints + 2));
+    }
+
+
+    @Test
+    public void testCalculateNewReleaseAmount() throws Exception {
+        Customer customer = new Customer("Ivanov");
+        Movie movie = new Movie("Scream", NewRelease);
+        Rental rentalOneDay = new Rental(movie, 1);
+
+        double result = customer.calculateNewReleaseAmount(rentalOneDay);
+        assertThat(result, equalTo(3.0));
+    }
+
+    @Test
+    public void testCalculateChildrenAmount() throws Exception {
+        Customer customer = new Customer("Ivanov");
+        Movie movie = new Movie("Scream", Childrens);
+        Rental rentalOneDay = new Rental(movie, 1);
+
+        double result = customer.calculateChildrenAmount(rentalOneDay);
+        assertThat(result, equalTo(1.5));
+    }
+
+    @Test
+    public void testCalculateRegularAmount() throws Exception {
+        Customer customer = new Customer("Ivanov");
+        Movie movie = new Movie("Scream", Regular);
+        Rental rentalOneDay = new Rental(movie, 1);
+
+        double result = customer.calculateRegularAmount(rentalOneDay);
+        assertThat(result, equalTo(2.0));
     }
 }

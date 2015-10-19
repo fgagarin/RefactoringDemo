@@ -68,22 +68,22 @@ public class Customer {
         }
 	}
 
-	int calculateNewReleaseAmount(Rental each) {
-		return each.getDaysRented() * 3;
+	double calculateNewReleaseAmount(Rental rental) {
+		return rental.getDaysRented() * 3;
 	}
 
-	double calculateChildrenAmount(Rental each) {
+	double calculateChildrenAmount(Rental rental) {
 		double thisAmount = 1.5;
-		if (each.getDaysRented() > 3) {
-            thisAmount = (each.getDaysRented() - 3) * 1.5;
+		if (rental.getDaysRented() > 3) {
+            thisAmount = (rental.getDaysRented() - 3) * 1.5;
         }
 		return thisAmount;
 	}
 
-	double calculateRegularAmount(Rental each) {
+	double calculateRegularAmount(Rental rental) {
 		double thisAmount = 2;
-		if (each.getDaysRented() > 2) {
-            thisAmount += (each.getDaysRented() - 2) * 1.5;
+		if (rental.getDaysRented() > 2) {
+            thisAmount += (rental.getDaysRented() - 2) * 1.5;
         }
 		return thisAmount;
 	}
