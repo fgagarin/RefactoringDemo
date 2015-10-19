@@ -53,6 +53,10 @@ public class CustomerTest {
 
         double result = customer.calculateChildrenAmount(rentalOneDay);
         assertThat(result, equalTo(1.5));
+
+        Rental rentalMoreThanThreeDays = new Rental(movie, 5);
+        result = customer.calculateChildrenAmount(rentalMoreThanThreeDays);
+        assertThat(result, equalTo(3.0));
     }
 
     @Test
@@ -63,5 +67,9 @@ public class CustomerTest {
 
         double result = customer.calculateRegularAmount(rentalOneDay);
         assertThat(result, equalTo(2.0));
+
+        Rental rentalMoreThanTwoDays = new Rental(movie, 3);
+        result = customer.calculateRegularAmount(rentalMoreThanTwoDays);
+        assertThat(result, equalTo(3.5));
     }
 }
