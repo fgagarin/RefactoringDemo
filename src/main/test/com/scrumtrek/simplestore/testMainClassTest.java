@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 /**
  * Created by fgagarin on 10/18/15.
  */
-public class MainClassTest {
+public class testMainClassTest {
 
     @Test
     public void testMain() throws Exception {
