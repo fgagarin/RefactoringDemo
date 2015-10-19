@@ -69,7 +69,7 @@ public class Customer {
 	}
 
 	double calculateNewReleaseAmount(Rental rental) {
-		return rental.getDaysRented() * 3;
+		return (double)rental.getDaysRented() * 3;
 	}
 
 	double calculateChildrenAmount(Rental rental) {
